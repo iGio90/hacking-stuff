@@ -58,7 +58,10 @@ print ""
 for url in urls_list:
     url = url.rstrip( )
 
-    content = get_url( url, payload ).text
+    try:
+        content = get_url( url, payload ).text
+    except requests.exceptions.ConnectionError:
+        print "[ FAILED TO CONNECT ] " + url
     
     if signature in content:
         print "[ VULNERABLE ] " + url
